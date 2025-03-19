@@ -15,3 +15,4 @@ class Config:
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "None"  # Change to "Lax" if cross-site isn't needed
     SESSION_COOKIE_SECURE = os.getenv("FLASK_ENV") == "production"  # Secure only in production
+    DB_URL = os.getenv('DB_URL')
