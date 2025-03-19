@@ -126,9 +126,20 @@ def forgot_password():
 # ==============================
 # User Session Check
 # ==============================
-@auth_bp.route('/user')
+@auth_bp.route('/user', methods=['GET'])
 def user():
-    return jsonify({'user': session.get("user"), 'logged_in': "user" in session, 'redirect': '/dashboard' if "user" in session else '/'}), 200
+    user = session.get("user")  # Get user from session
+    if not user:
+        return jsonify({'user': None, 'logged_in': False, 'redirect': '/'}), 401
+
+    return jsonify({
+        'user': {
+            'id': user.get("id"),
+            'email': user.get("email"),
+        },
+        'logged_in': True,
+        'redirect': '/dashboard'
+    }), 200
 
 # ==============================
 # Logout function
